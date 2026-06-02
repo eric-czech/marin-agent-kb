@@ -23,7 +23,7 @@ drop completed ones.
 ```python
 state = read_json(state_file)
 for name, job_id in state.items():
-    s = job_summary(job_id, timeout=180)             # iris --cluster marin job summary <id>
+    s = job_state(job_id, timeout=180)               # iris ... job summary <id> --json -> JobState
     if s in {"failed", "killed", "worker_failed"}:
         new_id = resubmit(name, ...standard flags...) # see run-iris-job
         state[name] = new_id
@@ -34,7 +34,12 @@ for name, job_id in state.items():
 ## Invariants
 
 - **Query error → skip.** Timeout / non-parseable output ≠ failure; wait for next tick.
-- **In-flight is a no-op:** `pending` / `running` / `submitted` / `queued`.
+- **In-flight is a no-op:** `pending` / `building` / `running`.
+- **Don't react to preemption** — Iris auto-retries it (the job stays `running`/`pending`);
+  only the terminal failure states above trigger a resubmit.
+- **`succeeded` = done** — drop it from the state file so it's no longer queried (saves Iris calls).
+- **`unschedulable` = terminal placement failure** — surface it; don't auto-resubmit. The
+  same request will likely re-fail (needs a different `--region`/`--zone`/slice, or capacity).
 - Resubmit silently; don't flag the operator on every recovery.
 
 ## Resubmit shape
