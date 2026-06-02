@@ -1,9 +1,9 @@
 ---
-name: monitor-sweep-resubmit
+name: monitor-sweep
 description: Keep a sweep alive by auto-resubmitting runs that failed or were killed.
 ---
 
-# Monitor Sweep & Resubmit
+# Monitor Sweep
 
 A recurring loop that watches a set of sweep runs and resubmits any that failed.
 **Read + submit only** — never stop/kill, never any destructive op.

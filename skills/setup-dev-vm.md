@@ -12,7 +12,7 @@ From scratch on a fresh Ubuntu x86_64 VM: gcloud, GitHub token + SSH key,
 
 Reuse the **existing** `eczech-agent@hai-gcp-models` key — GCP can't re-download key
 material, so never mint a new one casually. (If the SA / key doesn't exist yet,
-create it first — see `docs/auth-as-service-account.md`.)
+create it first — see `docs/setup-service-account.md`.)
 
 ```bash
 curl -fsSL https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz | tar -xz -C ~
@@ -62,5 +62,5 @@ Claude Code reads `~/.claude/skills/<name>/SKILL.md`; Codex reads
 
 ```bash
 ln -s ~/.agents/skills ~/.claude/skills                          # whole dir (or per-entry if it exists)
-ln -s ~/.agents/skills/marin-branch/SKILL.md ~/.codex/prompts/marin-branch.md
+ln -s ~/.agents/skills/clone-marin-branch/SKILL.md ~/.codex/prompts/clone-marin-branch.md
 ```

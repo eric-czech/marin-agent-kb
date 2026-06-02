@@ -12,27 +12,32 @@ notes and gists. Two folders:
 | Skill | What |
 |---|---|
 | `run-iris-job` | Submit / monitor / stop a job on an Iris cluster. |
-| `monitor-sweep-resubmit` | Loop that auto-resubmits failed/killed sweep runs. |
-| `design-tpu-sweep` | CPU-driver + Fray-TPU-worker sweep pattern (RUNS, subcommands). |
+| `monitor-sweep` | Loop that auto-resubmits failed/killed sweep runs. |
+| `write-sweep` | Develop a sweep as code: target list raced by workers via `claim_and_run`. |
 | `eval-checkpoints-offline` | Fan out one idempotent eval job per checkpoint. |
 | `prep-hf-dataset-zephyr` | Download an HF dataset + Zephyr pipeline → GCS parquet. |
 | `setup-dev-vm` | Bootstrap a fresh VM: gcloud/SA, GitHub auth, env, skills. |
-| `marin-branch` | Clone marin onto a new branch at `repos/marin-br/<slug>`. |
+| `clone-marin-branch` | Clone marin onto a new branch at `repos/marin-br/<slug>`. |
 
 ## Docs
 
+Named by topical prefix — `setup-`, `tpu-` (hardware reference), `iris-` (execution),
+`training-` (Levanter), `ops-` (lifecycle).
+
 | Doc | What |
 |---|---|
-| `dev-environment-setup` | Local repo setup: clone, buckets, HF Pro, auth, `make dev_setup`. |
-| `iris-scheduling-notes` | Zone/region control, Executor caveat, dashboards. |
+| `setup-dev-environment` | Local repo setup: clone, buckets, HF Pro, auth, `make dev_setup`. |
+| `setup-service-account` | Create + activate the `eczech-agent` SA. |
 | `tpu-clusters` | Cluster → zone → family → HBM/TFLOPS → slice sizes. |
 | `tpu-peak-flops-mfu` | Peak bf16 FLOPS + MFU denominator; v5p slice table. |
 | `tpu-device-utilization` | jax / `tpu-info` HBM & utilization on v5p-8. |
-| `auth-as-service-account` | Create + activate the `eczech-agent` SA. |
-| `submit-job-on-tpu-vm` | Worked TPU-direct `iris job run` example. |
-| `continued-pretraining-levanter` | `initialize_from*` options + LR re-warmup fix. |
-| `disable-grad-param-tracking` | Turn off `WatchConfig` per-param logging. |
-| `delete-tpu-vm` | Delete a stuck / misconfigured TPU worker VM. |
+| `iris-execution-model` | Fray vs Iris, TPU allocation, preemption, CPU-driver-vs-direct-on-TPU. |
+| `iris-scheduling-notes` | Zone/region control, Executor caveat, dashboards. |
+| `iris-priority-and-quota` | Priority bands (batch/interactive/production) + per-user budget formula. |
+| `iris-submit-tpu-job` | Worked TPU-direct `iris job run` example. |
+| `training-continuation` | `initialize_from*` options + LR re-warmup fix. |
+| `training-disable-grad-tracking` | Turn off `WatchConfig` per-param logging. |
+| `ops-delete-tpu-vm` | Delete a stuck / misconfigured TPU worker VM. |
 
 ## Conventions
 

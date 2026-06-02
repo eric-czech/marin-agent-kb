@@ -56,6 +56,6 @@ Job IDs are namespaced paths (e.g. `/myuser/my-job`).
 - TPU/GPU type and resources belong in the Python script, not the CLI.
 - After submit, report: Job ID, cluster, region(s).
 
-For TPU-direct submission with `--zone`/`--priority` control, see `docs/submit-job-on-tpu-vm.md`.
+For TPU-direct submission with `--zone`/`--priority` control, see `docs/iris-submit-tpu-job.md`.
 
 $ARGUMENTS

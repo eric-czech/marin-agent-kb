@@ -9,4 +9,4 @@ WatchConfig(watch_targets=[], interval=0)
 ```
 
 e.g. `dataclasses.replace(trainer, watch=WatchConfig(watch_targets=[], interval=0))`
-(see `experiments/protein/exp29_arch_sweep.py`).
+(`WatchConfig` lives in `levanter.callbacks.watch`).

@@ -25,6 +25,8 @@ source ~/marin.env && uv run iris --cluster marin job run \
 ```
 
 Notes:
-- `--zone <zone>` pins placement tighter than `--region`; `--reserve` requests reserved capacity.
-- `--priority interactive` for fast, short-lived debugging jobs.
+- `--zone <zone>` pins placement tighter than `--region`
+- `--priority` sets the band: `interactive` (default, counts against your quota),
+  `batch` (off-quota background), `production` (never preempted). See
+  `docs/iris-priority-and-quota.md`.
 - `--extra` adds dependency groups (`tpu`, `lm_eval`) to the worker image.

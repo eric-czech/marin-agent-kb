@@ -1,11 +1,11 @@
 ---
-name: marin-branch
+name: clone-marin-branch
 description: Clone marin-community/marin onto a new branch at repos/marin-br/<slug>.
 argument-hint: <branch-name> <originating-branch>
 allowed-tools: [Bash]
 ---
 
-# marin-branch
+# clone-marin-branch
 
 `$ARGUMENTS` → `<branch-name> <originating-branch>`. If either is missing, ask — there
 is no default originating branch, be explicit. Let `BR=<branch-name>`, `SRC=<originating-branch>`.
