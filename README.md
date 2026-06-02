@@ -2,10 +2,12 @@
 
 Private agent skills and context for the
 [marin](https://github.com/marin-community/marin) project, consolidated from personal
-notes and gists. Two folders:
+notes and gists. Three folders:
 
 - **`skills/`** — repeatable, actionable playbooks an agent invokes to *do* a task.
-- **`docs/`** — static reference an agent *reads* for context.
+- **`docs/`** — atomic, static reference an agent *reads* for context; kept current.
+- **`guides/`** — opinionated, point-in-time write-ups preserved for historical
+  reference; **not maintained** and may be out of date.
 
 ## Skills
 
@@ -35,9 +37,19 @@ Named by topical prefix — `setup-`, `tpu-` (hardware reference), `iris-` (exec
 | `iris-scheduling-notes` | Zone/region control, Executor caveat, dashboards. |
 | `iris-priority-and-quota` | Priority bands (batch/interactive/production) + per-user budget formula. |
 | `iris-submit-tpu-job` | Worked TPU-direct `iris job run` example. |
-| `training-continuation` | `initialize_from*` options + LR re-warmup fix. |
+| `training-continuation` | `initialize_from*` options + continuing the LR schedule. |
 | `training-disable-grad-tracking` | Turn off `WatchConfig` per-param logging. |
 | `ops-delete-tpu-vm` | Delete a stuck / misconfigured TPU worker VM. |
+
+## Guides
+
+Opinionated, point-in-time write-ups, **not maintained** — for historical reference only
+(contrast the atomic, current `docs/`).
+
+| Guide | What |
+|---|---|
+| `marin-dev-guide-2026q2` | Opinionated Marin user/dev guide, Q2 2026. |
+| `marin-dev-guide-2025q3` | Earlier snapshot, Q3 2025 (Ray-era pipeline setup). |
 
 ## Conventions
 
