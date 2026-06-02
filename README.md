@@ -1,0 +1,41 @@
+# marin-agent-kb
+
+Private agent skills and context for the
+[marin](https://github.com/marin-community/marin) project, consolidated from personal
+notes and gists. Two folders:
+
+- **`skills/`** — repeatable, actionable playbooks an agent invokes to *do* a task.
+- **`docs/`** — static reference an agent *reads* for context.
+
+## Skills
+
+| Skill | What |
+|---|---|
+| `run-iris-job` | Submit / monitor / stop a job on an Iris cluster. |
+| `monitor-sweep-resubmit` | Loop that auto-resubmits failed/killed sweep runs. |
+| `design-tpu-sweep` | CPU-driver + Fray-TPU-worker sweep pattern (RUNS, subcommands). |
+| `eval-checkpoints-offline` | Fan out one idempotent eval job per checkpoint. |
+| `prep-hf-dataset-zephyr` | Download an HF dataset + Zephyr pipeline → GCS parquet. |
+| `setup-dev-vm` | Bootstrap a fresh VM: gcloud/SA, GitHub auth, env, skills. |
+| `marin-branch` | Clone marin onto a new branch at `repos/marin-br/<slug>`. |
+
+## Docs
+
+| Doc | What |
+|---|---|
+| `dev-environment-setup` | Local repo setup: clone, buckets, HF Pro, auth, `make dev_setup`. |
+| `iris-scheduling-notes` | Zone/region control, Executor caveat, dashboards. |
+| `tpu-clusters` | Cluster → zone → family → HBM/TFLOPS → slice sizes. |
+| `tpu-peak-flops-mfu` | Peak bf16 FLOPS + MFU denominator; v5p slice table. |
+| `tpu-device-utilization` | jax / `tpu-info` HBM & utilization on v5p-8. |
+| `auth-as-service-account` | Create + activate the `eczech-agent` SA. |
+| `submit-job-on-tpu-vm` | Worked TPU-direct `iris job run` example. |
+| `continued-pretraining-levanter` | `initialize_from*` options + LR re-warmup fix. |
+| `disable-grad-param-tracking` | Turn off `WatchConfig` per-param logging. |
+| `delete-tpu-vm` | Delete a stuck / misconfigured TPU worker VM. |
+
+## Conventions
+
+- Source secrets from `~/marin.env`; pass `--user $USERNAME`; use `--cluster marin`.
+- Lint via `./infra/pre-commit.py` (never `uv run pre-commit`).
+- These complement the marin repo's own `.agents/skills/` — they don't replace them.
