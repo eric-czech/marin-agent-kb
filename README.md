@@ -16,7 +16,7 @@ notes and gists. Three folders:
 | [`run-iris-job`](skills/run-iris-job.md) | Submit / monitor / stop a job on an Iris cluster. |
 | [`monitor-sweep`](skills/monitor-sweep.md) | Loop that auto-resubmits failed/killed sweep runs. |
 | [`write-sweep`](skills/write-sweep.md) | Develop a sweep as code: target list raced by workers via `claim_and_run`. |
-| [`size-tpu-batch`](skills/size-tpu-batch.md) | Single-host TPU stats + slice-dependent sizing (fixed global batch / grad accum). |
+| [`size-train-config`](skills/size-train-config.md) | Slice-agnostic training config: fix global batch, derive per-device parallelism / grad accum per slice. |
 | [`eval-checkpoints-offline`](skills/eval-checkpoints-offline.md) | Fan out one idempotent eval job per checkpoint. |
 | [`prep-hf-dataset-zephyr`](skills/prep-hf-dataset-zephyr.md) | Download an HF dataset + Zephyr pipeline → GCS parquet. |
 | [`setup-dev-vm`](skills/setup-dev-vm.md) | Bootstrap a fresh VM: gcloud/SA, GitHub auth, env, skills. |

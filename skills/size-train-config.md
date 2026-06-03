@@ -1,13 +1,14 @@
 ---
-name: size-tpu-batch
-description: Hard-coded single-host TPU stats plus helpers for slice-dependent sizing (fixed global batch / gradient accumulation, HBM, peak FLOPS).
+name: size-train-config
+description: Keep a training config slice-agnostic — fix the global batch, derive per-device parallelism / gradient accumulation per TPU slice.
 ---
 
-# Size a TPU Slice
+# Size a Training Config
 
-Stats for single-host slices plus sizing helpers. Pick the slice at submission and size
-from `SINGLE_HOST[tpu]`: config-time `chips` equals runtime `jax.device_count()`, and
-`per_device_parallelism` is per chip, so never probe `jax.devices()`.
+Keep the training config **slice-agnostic**: fix the global batch (and the rest of the
+hyperparameters) once, and let the only slice-dependent knob — `per_device_parallelism` —
+be derived at submission from `SINGLE_HOST[tpu]`. Config-time `chips` equals runtime
+`jax.device_count()` and `per_device_parallelism` is per chip, so never probe `jax.devices()`.
 
 ## Stats
 
@@ -60,8 +61,20 @@ def per_device_parallelism(tpu: str, global_batch: int, per_chip_microbatch: int
     return next(d for d in range(cap, 0, -1) if full % d == 0)
 ```
 
-With `per_chip_microbatch=8`, `global_batch=128`: `v5p-8` → `-1`; `v4-8` → `16` (2× accum);
-`v5litepod-4` → `8` (4×).
+The two config params this yields — `per_device_parallelism` and the implied grad-accum
+(`batch // (pdp × chips)`, `1` when `pdp == -1`):
+
+```python
+GB, PCM = 128, 8                                  # global batch; measured per-chip microbatch
+for tpu in ("v5p-8", "v6e-4", "v5litepod-8"):
+    chips = SINGLE_HOST[tpu].chips
+    pdp = per_device_parallelism(tpu, GB, PCM)
+    microbatch = GB if pdp < 0 else pdp * chips
+    print(tpu, "per_device_parallelism=", pdp, "grad_accum=", GB // microbatch)
+# v5p-8        per_device_parallelism= -1  grad_accum= 1
+# v6e-4        per_device_parallelism= 16  grad_accum= 2
+# v5litepod-8  per_device_parallelism=  8  grad_accum= 2
+```
 
 ## Scope
 
