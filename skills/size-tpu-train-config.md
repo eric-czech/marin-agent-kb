@@ -56,7 +56,7 @@ def per_device_parallelism(tpu: str, global_batch: int, per_chip_microbatch: int
     if global_batch % s.chips:
         raise ValueError(f"{global_batch} not divisible by {s.chips} chips ({tpu})")
     cap = per_chip_microbatch * (s.hbm_gib // floor_gib)
-    full = global_batch // s.chips                      # per-chip load with no accumulation
+    full = global_batch // s.chips  # per-chip load with no accumulation
     if full <= cap:
         return -1
     return next(d for d in range(cap, 0, -1) if full % d == 0)
@@ -64,14 +64,14 @@ def per_device_parallelism(tpu: str, global_batch: int, per_chip_microbatch: int
 
 def gradient_accumulation(tpu: str, global_batch: int, pdp: int) -> int:
     chips = TPU_STATS[tpu].chips
-    microbatch = global_batch if pdp < 0 else pdp * chips   # pdp == -1 -> whole batch, 1 step
+    microbatch = global_batch if pdp < 0 else pdp * chips  # pdp == -1 -> whole batch, 1 step
     return global_batch // microbatch
 ```
 
 The two config params — `per_device_parallelism` and `gradient_accumulation`:
 
 ```python
-GB, PCM = 128, 8                                  # global batch; measured per-chip microbatch
+GB, PCM = 128, 8  # global batch; measured per-chip microbatch
 for tpu in ("v5p-8", "v6e-4", "v5litepod-8"):
     pdp = per_device_parallelism(tpu, GB, PCM)
     gacc = gradient_accumulation(tpu, GB, pdp)
