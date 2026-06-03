@@ -1,9 +1,9 @@
 ---
-name: eval-checkpoints-offline
+name: eval-checkpoints
 description: Offline-eval Levanter checkpoints by fanning out one idempotent Iris job per checkpoint.
 ---
 
-# Offline Checkpoint Eval
+# Eval Checkpoints
 
 Evaluate trained Levanter checkpoints without an Executor or status files: a CPU
 iris coordinator fans out one Fray TPU sub-job per checkpoint, and the done-signal
