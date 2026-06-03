@@ -25,6 +25,12 @@ Spend is computed per user over active tasks and capped by a per-user **budget l
 
 The `1000 × chips` term dominates, so quota use ≈ **chips in flight × 1000** (≈75 chips at ~75,000).
 
+## Inspect budgets
+
+`iris --cluster marin budget list` prints each user's limit, current spend, and max band
+(`budget get <user>` for one user; `budget set` is admin-only). Use it to see how much of
+your quota is in flight. The exact columns may change — what matters is that the command exists.
+
 ## Examples
 
 Chip counts per `TPU_TOPOLOGIES` (see `docs/tpu-clusters.md`). With `with_tpu` defaults
