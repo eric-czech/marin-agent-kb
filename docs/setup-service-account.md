@@ -25,3 +25,16 @@ export GOOGLE_APPLICATION_CREDENTIALS=/path/to/eczech-agent.json
 
 GCP can't re-download key material, so keep the key safe — `skills/setup-dev-vm.md`
 reuses an existing key rather than minting a new one.
+
+## Scoped by design (no object deletes)
+
+The `marin_agent` role deliberately omits `storage.objects.delete`, so the SA can read
+and write GCS but **not delete** objects. Expect errors like this:
+
+```
+the active service account eczech-agent@hai-gcp-models.iam.gserviceaccount.com
+has no storage.objects.delete permission on marin-us-east5
+```
+
+If a task genuinely needs a delete, do it as yourself (not the SA) rather than widening
+the role.
