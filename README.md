@@ -32,7 +32,7 @@ Named by topical prefix — `setup-`, `tpu-` (hardware reference), `iris-` (exec
 | [`setup-dev-environment`](docs/setup-dev-environment.md) | Local repo setup: clone, buckets, HF Pro, auth, `make dev_setup`. |
 | [`setup-service-account`](docs/setup-service-account.md) | Create + activate the `eczech-agent` SA. |
 | [`tpu-clusters`](docs/tpu-clusters.md) | Cluster → zone → family → HBM/TFLOPS → slice sizes. |
-| [`tpu-peak-flops-mfu`](docs/tpu-peak-flops-mfu.md) | Peak bf16 FLOPS + MFU denominator; v5p slice table. |
+| [`tpu-stats`](docs/tpu-stats.md) | Per-chip bf16 FLOPS + HBM; per-slice peak-FLOPS tables (v5p/v5e/v6e); MFU denominator. |
 | [`tpu-device-utilization`](docs/tpu-device-utilization.md) | jax / `tpu-info` HBM & utilization on v5p-8. |
 | [`iris-execution-model`](docs/iris-execution-model.md) | Fray vs Iris, TPU allocation, preemption, CPU-driver-vs-direct-on-TPU. |
 | [`iris-scheduling-notes`](docs/iris-scheduling-notes.md) | Zone/region control, Executor caveat, dashboards. |

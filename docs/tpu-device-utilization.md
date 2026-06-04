@@ -3,7 +3,7 @@
 What `jax` and `tpu-info` report on a Marin dev TPU — captured on an Iris-allocated v5p-8
 in `us-east5-a`. Allocate one with the marin `reserve-tpu` skill or `scripts/iris/dev_tpu.py`
 (Driver, below). For slice → chip/HBM and peak FLOPS, see `docs/tpu-clusters.md` and
-`docs/tpu-peak-flops-mfu.md`.
+`docs/tpu-stats.md`.
 
 The `tpu-info` snapshots below walk one workload through four states —
 **idle → starting → steady → idle** — to show what each metric actually reports under load.

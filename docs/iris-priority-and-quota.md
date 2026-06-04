@@ -43,4 +43,4 @@ Chip counts per `TPU_TOPOLOGIES` (see `docs/tpu-clusters.md`). With `with_tpu` d
 | `v5e-8` (`v5litepod-8`) | 8 | 8,288 | ~9 |
 
 See also `docs/iris-execution-model.md` (bands drive preemption/retries) and
-`docs/tpu-peak-flops-mfu.md` (chips per slice).
+`docs/tpu-stats.md` (chips per slice).

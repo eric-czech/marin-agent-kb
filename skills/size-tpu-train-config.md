@@ -23,7 +23,7 @@ class TpuStats:
     tflops: int     # peak bf16 TFLOP/s per chip
 
 
-# HBM/TFLOPS per chip from docs/tpu-clusters.md; chips per fray TPU_TOPOLOGIES
+# HBM/TFLOPS per chip from docs/tpu-stats.md; chips per fray TPU_TOPOLOGIES
 # (N/2 for v4/v5p, N for v5e/v6e). Non-exhaustive — add any slice you use the same
 # way (multi-host included).
 TPU_STATS: dict[str, TpuStats] = {
