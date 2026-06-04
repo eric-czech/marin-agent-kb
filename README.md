@@ -29,7 +29,6 @@ Named by topical prefix — `setup-`, `tpu-` (hardware reference), `iris-` (exec
 
 | Doc | What |
 |---|---|
-| [`setup-dev-environment`](docs/setup-dev-environment.md) | Local repo setup: clone, buckets, HF Pro, auth, `make dev_setup`. |
 | [`setup-service-account`](docs/setup-service-account.md) | Create + activate the `eczech-agent` SA. |
 | [`tpu-clusters`](docs/tpu-clusters.md) | Cluster → zone → family → HBM/TFLOPS → slice sizes. |
 | [`tpu-stats`](docs/tpu-stats.md) | Per-chip bf16 FLOPS + HBM; per-slice peak-FLOPS tables (v5p/v5e/v6e); MFU denominator. |
