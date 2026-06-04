@@ -20,6 +20,9 @@ drop completed ones.
 
 ## Per-tick logic
 
+**Default to a programmatic loop** (below): a script reads state, polls each job, and
+resubmits — don't monitor by hand unless the operator explicitly says to do so.
+
 ```python
 state = read_json(state_file)
 for name, job_id in state.items():
@@ -44,9 +47,9 @@ for name, job_id in state.items():
 
 ## Resubmit shape
 
-A TPU-direct `iris ... job run` (see `run-iris-job`) with a pinned region, fixed
-resource extras, and a date-stamped `--job-name` so each submission is unique.
-Capture the new job id from the last stdout line and write it back to state.
+Re-run the **same command the run was originally submitted with** — only (a) pin a region
+if the original didn't, and (b) refresh the date-stamped `--job-name` so each submission is
+unique. Capture the new job id from the last stdout line and write it back to state.
 
 ## Scheduling
 
