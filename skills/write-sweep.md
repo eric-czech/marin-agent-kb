@@ -11,9 +11,10 @@ Pattern for a config sweep (one trial per grid point) in marin. Start from the t
 
 ## Layout
 
-Build every trial at submission time, then submit `NUM_WORKERS` independent workers. Each
-worker races peers on a per-target lock (`claim_and_run`) and trains the claimed trial
-**inline**; a target a peer already finished is a no-op.
+Build every trial at submission time, then submit `NUM_WORKERS` independent workers
+(default `1`; raise it to run more trials concurrently). Each worker races peers on a
+per-target lock (`claim_and_run`) and trains the claimed trial **inline**; a target a
+peer already finished is a no-op.
 
 ```python
 trials  = [build_trial(c) for c in grid]                    # configs carry placeholders
