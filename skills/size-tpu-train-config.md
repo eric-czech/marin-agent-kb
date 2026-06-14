@@ -25,9 +25,7 @@ class TpuStats:
 
 
 # HBM/TFLOPS per chip from docs/tpu-stats.md; chips (= chip_count) and hosts
-# (= host_count) per fray TPU_TOPOLOGIES — do not guess these, look them up.
-# Non-exhaustive — add any slice you use the same way. Slices below the rule are
-# single-host (hosts == 1); the rest are multi-host.
+# (= host_count) per fray TPU_TOPOLOGIES. Non-exhaustive — add slices as needed.
 TPUS: dict[str, TpuStats] = {
     # ---- single-host ----
     "v4-8":        TpuStats(chips=4,  hbm_gib=32, tflops=275, hosts=1),
