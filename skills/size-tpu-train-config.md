@@ -7,7 +7,7 @@ description: Keep a training config slice-agnostic — fix the global batch, der
 
 Keep the training config **slice-agnostic**: fix the global batch (and the rest of the
 hyperparameters) once, and let the only slice-dependent knob — `per_device_parallelism` —
-be derived at submission from `TPU_STATS[tpu]`. Config-time `chips` equals runtime
+be derived at submission from `TPUS[tpu]`. Config-time `chips` equals runtime
 `jax.device_count()` and `per_device_parallelism` is per chip, so never probe `jax.devices()`.
 
 ## Stats
@@ -21,21 +21,27 @@ class TpuStats:
     chips: int      # total accelerator chips in the slice (= jax.device_count())
     hbm_gib: int    # HBM per chip
     tflops: int     # peak bf16 TFLOP/s per chip
+    hosts: int      # host VMs in the slice (> 1 ⇒ multi-host)
 
 
-# HBM/TFLOPS per chip from docs/tpu-stats.md; chips per fray TPU_TOPOLOGIES
-# (N/2 for v4/v5p, N for v5e/v6e). Non-exhaustive — add any slice you use the same
-# way (multi-host included).
-TPU_STATS: dict[str, TpuStats] = {
-    "v4-8":        TpuStats(chips=4, hbm_gib=32, tflops=275),
-    "v5litepod-1": TpuStats(chips=1, hbm_gib=16, tflops=197),
-    "v5litepod-2": TpuStats(chips=2, hbm_gib=16, tflops=197),
-    "v5litepod-4": TpuStats(chips=4, hbm_gib=16, tflops=197),
-    "v5litepod-8": TpuStats(chips=8, hbm_gib=16, tflops=197),
-    "v5p-8":       TpuStats(chips=4, hbm_gib=95, tflops=459),
-    "v6e-1":       TpuStats(chips=1, hbm_gib=32, tflops=918),
-    "v6e-4":       TpuStats(chips=4, hbm_gib=32, tflops=918),
-    "v6e-8":       TpuStats(chips=8, hbm_gib=32, tflops=918),
+# HBM/TFLOPS per chip from docs/tpu-stats.md; chips (= chip_count) and hosts
+# (= host_count) per fray TPU_TOPOLOGIES — do not guess these, look them up.
+# Non-exhaustive — add any slice you use the same way. Slices below the rule are
+# single-host (hosts == 1); the rest are multi-host.
+TPUS: dict[str, TpuStats] = {
+    # ---- single-host ----
+    "v4-8":        TpuStats(chips=4,  hbm_gib=32, tflops=275, hosts=1),
+    "v5litepod-4": TpuStats(chips=4,  hbm_gib=16, tflops=197, hosts=1),
+    "v5litepod-8": TpuStats(chips=8,  hbm_gib=16, tflops=197, hosts=1),
+    "v6e-4":       TpuStats(chips=4,  hbm_gib=32, tflops=918, hosts=1),
+    "v6e-8":       TpuStats(chips=8,  hbm_gib=32, tflops=918, hosts=1),
+    "v5p-8":       TpuStats(chips=4,  hbm_gib=95, tflops=459, hosts=1),
+    # ---- multi-host ----
+    "v5p-16":      TpuStats(chips=8,  hbm_gib=95, tflops=459, hosts=2),
+    "v5p-32":      TpuStats(chips=16, hbm_gib=95, tflops=459, hosts=4),
+    "v5p-64":      TpuStats(chips=32, hbm_gib=95, tflops=459, hosts=8),
+    "v6e-16":      TpuStats(chips=16, hbm_gib=32, tflops=918, hosts=4),
+    "v6e-32":      TpuStats(chips=32, hbm_gib=32, tflops=918, hosts=8),
 }
 ```
 
@@ -52,7 +58,7 @@ accumulation:
 
 ```python
 def per_device_parallelism(tpu: str, global_batch: int, per_chip_microbatch: int, floor_gib: int = 16) -> int:
-    s = TPU_STATS[tpu]
+    s = TPUS[tpu]
     if global_batch % s.chips:
         raise ValueError(f"{global_batch} not divisible by {s.chips} chips ({tpu})")
     cap = per_chip_microbatch * (s.hbm_gib // floor_gib)
@@ -63,7 +69,7 @@ def per_device_parallelism(tpu: str, global_batch: int, per_chip_microbatch: int
 
 
 def gradient_accumulation(tpu: str, global_batch: int, pdp: int) -> int:
-    chips = TPU_STATS[tpu].chips
+    chips = TPUS[tpu].chips
     microbatch = global_batch if pdp < 0 else pdp * chips  # pdp == -1 -> whole batch, 1 step
     return global_batch // microbatch
 ```
