@@ -15,6 +15,7 @@ notes and gists. Three folders:
 |---|---|
 | [`run-iris-job`](skills/run-iris-job.md) | Submit / monitor / stop a job on an Iris cluster. |
 | [`monitor-sweep`](skills/monitor-sweep.md) | Loop that auto-resubmits failed/killed sweep runs. |
+| [`schedule-sweep`](skills/schedule-sweep.md) | Finish a sweep fastest: throughput-driven slice/band placement, budget, recovery, relocation. Supersedes `monitor-sweep`. |
 | [`write-sweep`](skills/write-sweep.md) | Develop a sweep as code: target list raced by workers via `claim_and_run`. |
 | [`size-tpu-train-config`](skills/size-tpu-train-config.md) | Slice-agnostic training config: fix global batch, derive per-device parallelism / grad accum per slice. |
 | [`eval-checkpoints`](skills/eval-checkpoints.md) | Fan out one idempotent eval job per checkpoint. |
