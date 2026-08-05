@@ -27,7 +27,8 @@ notes and gists. Three folders:
 ## Docs
 
 Named by topical prefix — `setup-`, `tpu-` (hardware reference), `iris-` (execution),
-`training-` (Levanter), `ops-` (lifecycle).
+`training-` (Levanter), `ops-` (lifecycle) — plus standalone platform references such
+as `coreweave`.
 
 | Doc | What |
 |---|---|
@@ -39,6 +40,7 @@ Named by topical prefix — `setup-`, `tpu-` (hardware reference), `iris-` (exec
 | [`iris-scheduling-notes`](docs/iris-scheduling-notes.md) | Zone/region control, Executor caveat, dashboards. |
 | [`iris-priority-and-quota`](docs/iris-priority-and-quota.md) | Priority bands (batch/interactive/production) + per-user budget formula. |
 | [`iris-submit-tpu-job`](docs/iris-submit-tpu-job.md) | Worked TPU-direct `iris job run` example. |
+| [`coreweave`](docs/coreweave.md) | CoreWeave submission, gang sizing, shared storage, GPU runtime, and cluster map. |
 | [`training-continuation`](docs/training-continuation.md) | `initialize_from*` options + continuing the LR schedule. |
 | [`training-disable-grad-tracking`](docs/training-disable-grad-tracking.md) | Turn off `WatchConfig` per-param logging. |
 | [`ops-delete-tpu-vm`](docs/ops-delete-tpu-vm.md) | Delete a stuck / misconfigured TPU worker VM. |
