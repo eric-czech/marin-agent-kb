@@ -15,4 +15,5 @@ underscore, reflect). No nominalization. No hedging qualifiers. Write for the sp
 voice. No performed enthusiasm.
 ```
 
-Source: [gist `ad8fe29a`](https://gist.github.com/eric-czech/ad8fe29a4014a10988e0893e2d655973).
+Source: [@0xpia](https://x.com/0xpia/status/2082473727602671690), via
+[gist `ad8fe29a`](https://gist.github.com/eric-czech/ad8fe29a4014a10988e0893e2d655973).
