@@ -13,10 +13,8 @@ notes and gists. Three folders:
 
 | Skill | What |
 |---|---|
-| [`run-iris-job`](skills/run-iris-job.md) | Submit / monitor / stop a job on an Iris cluster. |
 | [`monitor-sweep`](skills/monitor-sweep.md) | Loop that auto-resubmits failed/killed sweep runs. |
 | [`schedule-sweep`](skills/schedule-sweep.md) | Finish a sweep fastest: throughput-driven slice/band placement, budget, recovery, relocation. Supersedes `monitor-sweep`. |
-| [`write-sweep`](skills/write-sweep.md) | Develop a sweep as code: target list raced by workers via `claim_and_run`. |
 | [`size-tpu-train-config`](skills/size-tpu-train-config.md) | Slice-agnostic training config: fix global batch, derive per-device parallelism / grad accum per slice. |
 | [`eval-checkpoints`](skills/eval-checkpoints.md) | Fan out one idempotent eval job per checkpoint. |
 | [`fleet-capacity`](skills/fleet-capacity.md) | Region × TPU-slice fleet usage — the dashboard's "Fleet Overview", from the CLI. |
@@ -39,7 +37,6 @@ references such as `coreweave`.
 | [`iris-execution-model`](docs/iris-execution-model.md) | Fray vs Iris, TPU allocation, preemption, CPU-driver-vs-direct-on-TPU. |
 | [`iris-scheduling-notes`](docs/iris-scheduling-notes.md) | Zone/region control, Executor caveat, dashboards. |
 | [`iris-priority-and-quota`](docs/iris-priority-and-quota.md) | Priority bands (batch/interactive/production) + per-user budget formula. |
-| [`iris-submit-tpu-job`](docs/iris-submit-tpu-job.md) | Worked TPU-direct `iris job run` example. |
 | [`coreweave`](docs/coreweave.md) | CoreWeave submission, gang sizing, shared storage, GPU runtime, and cluster map. |
 | [`training-continuation`](docs/training-continuation.md) | `initialize_from*` options + continuing the LR schedule. |
 | [`training-disable-grad-tracking`](docs/training-disable-grad-tracking.md) | Turn off `WatchConfig` per-param logging. |

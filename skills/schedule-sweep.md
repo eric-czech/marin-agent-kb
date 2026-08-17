@@ -14,7 +14,6 @@ Composable references (their knowledge is assumed, not repeated — the default 
 related skill/doc):
 
 - `monitor-sweep` — the failure-recovery loop this skill absorbs; consult for resubmit shape.
-- `run-iris-job` — submit/monitor/stop one job.
 - `size-tpu-train-config` — makes a config slice-agnostic (any slice launchable).
 - `docs/iris-priority-and-quota.md` — priority bands + per-user budget.
 

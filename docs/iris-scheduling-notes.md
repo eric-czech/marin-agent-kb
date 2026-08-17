@@ -1,7 +1,7 @@
 # Iris Scheduling Notes
 
 Operational notes for running jobs on Iris (all marin scheduling goes through Iris;
-Ray is gone). See `skills/run-iris-job.md` for the submit command.
+Ray is gone).
 
 ## Region / zone control
 
@@ -11,15 +11,14 @@ off pinning a region/zone that has the slice and scheduling there explicitly:
 
 - Pass `--zone <zone>` (and `--reserve` when needed) to control placement.
 - Current availability: https://iris.oa.dev/#/autoscaler
-- Full TPU-direct example: `docs/iris-submit-tpu-job.md`; zone↔TPU map: `docs/tpu-clusters.md`.
+- Zone↔TPU map: `docs/tpu-clusters.md`.
 
 ## Executor
 
 The Executor now runs **with** training jobs rather than spawning them. Running a
 multi-step sweep via `executor_main` directly on a preemptible TPU VM fails with
 `RuntimeError: distributed.initialize should only be called once` — you can't train
-multiple times in one Python process. Submit one job per trial instead
-(see `skills/write-sweep.md`).
+multiple times in one Python process. Submit one job per trial instead.
 
 ## Dashboards
 

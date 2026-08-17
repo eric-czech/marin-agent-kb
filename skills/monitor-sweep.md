@@ -28,7 +28,7 @@ state = read_json(state_file)
 for name, job_id in state.items():
     s = job_state(job_id, timeout=180)               # iris ... job summary <id> --json -> JobState
     if s in {"failed", "killed", "worker_failed"}:
-        new_id = resubmit(name, ...standard flags...) # see run-iris-job
+        new_id = resubmit(name, ...original flags...)
         state[name] = new_id
         write_json(state_file, state)
     report_line(name, s)
