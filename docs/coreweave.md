@@ -308,6 +308,14 @@ set -a
 source ~/marin.env
 set +a
 
+# On a trusted Marin operator VM, refresh keys from the source of truth. This
+# deliberately overwrites a stale pair loaded from marin.env without printing it.
+CW_KEY_ID="$(gcloud secrets versions access latest \
+  --project=hai-gcp-models --secret=cw-object-storage-key-id)"
+CW_KEY_SECRET="$(gcloud secrets versions access latest \
+  --project=hai-gcp-models --secret=cw-object-storage-key-secret)"
+export CW_KEY_ID CW_KEY_SECRET
+
 cfg=$(mktemp)
 printf '[default]\ns3 =\n    addressing_style = virtual\n' > "$cfg"
 
@@ -320,8 +328,41 @@ AWS_PAGER="" \
 uv run --with awscli aws s3 ls s3://marin-us-east-02a/MarinFold/
 ```
 
+Do not print, commit, or paste the resolved values. Secret Manager access is
+available to the service account on the managed Marin operator VM. If either
+`gcloud secrets versions access` call is denied elsewhere, obtain a current
+CoreWeave object-storage key through an operator instead of copying credentials
+out of a task Pod.
+
+`InvalidAccessKeyId` from `cwobject.com` means the supplied key was revoked or
+rotated; it is not fixed by changing the signing region or addressing style.
+Refresh both values above. `SignatureDoesNotMatch` instead usually means the key
+and secret do not belong to the same pair.
+
 In Python, `rigging.filesystem.s3_compat.configure_coreweave_s3()` configures the
 same keys; plain `fsspec.filesystem("s3")` can then access the bucket.
+
+```python
+from uuid import uuid4
+
+import fsspec
+from rigging.filesystem.s3_compat import configure_coreweave_s3
+
+configure_coreweave_s3()
+fs = fsspec.filesystem("s3")
+
+# Direct read/list outside CoreWeave through https://cwobject.com.
+fs.ls("marin-us-east-02a/MarinDNA/")
+
+# Disposable write smoke. Leave the object for the lifecycle rule; do not use a
+# durable prefix for tests. Supported TTLs are 1-7, 14, and 30 days.
+path = f"marin-us-east-02a/tmp/ttl=7d/operator-smoke/{uuid4().hex}.txt"
+with fs.open(path, "wb") as f:
+    f.write(b"CoreWeave S3 write smoke\n")
+with fs.open(path, "rb") as f:
+    assert f.read() == b"CoreWeave S3 write smoke\n"
+print(f"s3://{path}")
+```
 
 ## Sources
 
