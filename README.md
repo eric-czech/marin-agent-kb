@@ -18,6 +18,7 @@ notes and gists. Three folders:
 | [`size-tpu-train-config`](skills/size-tpu-train-config.md) | Slice-agnostic training config: fix global batch, derive per-device parallelism / grad accum per slice. |
 | [`eval-checkpoints`](skills/eval-checkpoints.md) | Fan out one idempotent eval job per checkpoint. |
 | [`fleet-capacity`](skills/fleet-capacity.md) | Region × TPU-slice fleet usage — the dashboard's "Fleet Overview", from the CLI. |
+| [`serve-marin-models`](skills/serve-marin-models.md) | Serve models through Iris with a chat UI, API access, and verified batch priority. |
 | [`prep-hf-dataset-zephyr`](skills/prep-hf-dataset-zephyr.md) | Download an HF dataset + Zephyr pipeline → GCS parquet. |
 | [`setup-dev-vm`](skills/setup-dev-vm.md) | Bootstrap a fresh VM: gcloud/SA, GitHub auth, env, skills. |
 | [`clone-marin-branch`](skills/clone-marin-branch.md) | Clone marin onto a new branch at `repos/marin-br/<slug>`. |
