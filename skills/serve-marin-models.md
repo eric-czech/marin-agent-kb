@@ -42,6 +42,13 @@ Before the driver requests accelerators, check its stored priority and refuse to
 continue unless it is batch. After submission, verify the serving child's
 controller-recorded priority too. Leave capacity waits at batch priority.
 
+## Worked launch
+
+The [Snowball launch from 2026-10-24](../guides/serve-snowball-2026-10-24.md)
+records the working parent submission and full GPU serving command, including the
+priority check. These commands may have changed: consult current CLI help and
+Marin documentation first, then adapt the example to the model and cluster.
+
 ## Bound the lifetime
 
 Set a finite serving lifetime and parent deadline, allowing time for admission
