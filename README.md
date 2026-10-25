@@ -51,7 +51,6 @@ Opinionated, point-in-time write-ups, **not maintained** — for historical refe
 
 | Guide | What |
 |---|---|
-| [`serve-snowball-2026-10-24`](guides/serve-snowball-2026-10-24.md) | Working Snowball serving launch: batch parent, GPU command, and priority guard. |
 | [`marin-dev-guide-2026q2`](guides/marin-dev-guide-2026q2.md) | Opinionated Marin user/dev guide, Q2 2026. |
 | [`marin-dev-guide-2025q3`](guides/marin-dev-guide-2025q3.md) | Earlier snapshot, Q3 2025 (Ray-era pipeline setup). |
 
