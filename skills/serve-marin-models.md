@@ -194,3 +194,50 @@ Return the chat UI link, API base URL and model ID, job dashboard and IDs, verif
 priority, expiry times, and the command for stopping this job tree. Stop for a
 missing credential or an unclear resource/runtime failure. Keep recovery within
 the serving jobs authorized by the user.
+
+## Long-running API requests
+
+Use streaming for generations that can take minutes. Increasing the client's
+read timeout does not override timeouts at other proxy hops. A disconnected
+client can leave the model generating on the server.
+
+These chat-completion options worked in October 2026; check current API/backend
+docs before reuse. Set the output limit to the user's requested budget; 65,536
+is the example from this run.
+
+```json
+{
+  "stream": true,
+  "stream_options": {"include_usage": true},
+  "max_tokens": 65536
+}
+```
+
+For raw SSE, verify a terminal `finish_reason`, final token usage, and `[DONE]`;
+for an SDK, verify its equivalent normal stream completion. HTTP 200 alone can
+mean only that streaming headers were sent. Save received text incrementally,
+along with the request parameters, request/completion ID when available,
+timestamps, final usage, and finish reason. Preserve interrupted attempts
+separately from completed retries.
+
+A `length` finish is a completed API response that exhausted a generation limit.
+Compare reported usage with the requested cap and available model context to
+catch an unexpectedly lower server limit. Assess answer content and format
+separately: repetition or an unfinished answer at the cap is a model result,
+not a transport failure.
+
+For unattended requests, run the API client detached on a trusted host that
+stays awake, save output there, and copy completed records back locally. Only
+transfer the scoped serving capability the client needs. Laptop lid-close sleep
+can sever a stream; `caffeinate -i` prevents idle sleep but does not protect
+against clamshell sleep. An SSH session that merely forwards a live response
+still depends on the laptop staying connected.
+
+After a transport failure, check the original request's server-side outcome
+before retrying. Correlate task logs or metrics with its ID and submission time;
+endpoint health or an HTTP 200 access-log entry does not establish completion.
+Batch preemption can also interrupt a request. Confirm that the original work
+has finished, been cancelled, or lost its task attempt, then check readiness
+before a retry. Keep retries within the user's request/runtime budget, preserve
+batch priority, and diagnose repeated or unexplained technical failures before
+submitting more work.
