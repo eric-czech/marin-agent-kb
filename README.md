@@ -42,6 +42,7 @@ references such as `coreweave`.
 | [`training-continuation`](docs/training-continuation.md) | `initialize_from*` options + continuing the LR schedule. |
 | [`training-disable-grad-tracking`](docs/training-disable-grad-tracking.md) | Turn off `WatchConfig` per-param logging. |
 | [`ops-delete-tpu-vm`](docs/ops-delete-tpu-vm.md) | Delete a stuck / misconfigured TPU worker VM. |
+| [`writing`](docs/writing.md) | Writing priorities, context, structure, and presentation. |
 | [`writing-style-constraints`](docs/writing-style-constraints.md) | Prose constraints for agent-authored text; strips LLM register. |
 
 ## Guides
